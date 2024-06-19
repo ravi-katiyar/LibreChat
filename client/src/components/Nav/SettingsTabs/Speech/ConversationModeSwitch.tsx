@@ -12,14 +12,15 @@ export default function ConversationModeSwitch({
   const [conversationMode, setConversationMode] = useRecoilState<boolean>(store.conversationMode);
   const [advancedMode, setAdvancedMode] = useRecoilState<boolean>(store.advancedMode);
   const [textToSpeech] = useRecoilState<boolean>(store.TextToSpeech);
-  const [, setAutoSendText] = useRecoilState<boolean>(store.autoSendText);
+  const [, setAutoSendText] = useRecoilState(store.autoSendText);
   const [, setDecibelValue] = useRecoilState(store.decibelValue);
   const [, setAutoTranscribeAudio] = useRecoilState<boolean>(store.autoTranscribeAudio);
 
   const handleCheckedChange = (value: boolean) => {
     if (!advancedMode) {
       setAutoTranscribeAudio(value);
-      setAutoSendText(value);
+      // TODO: awaiting PR approval to fix this
+      setAutoSendText(3);
       setDecibelValue(-45);
     }
     setConversationMode(value);

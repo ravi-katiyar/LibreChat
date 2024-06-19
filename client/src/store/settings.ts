@@ -61,7 +61,7 @@ const localStorageAtoms = {
   SpeechToText: atomWithLocalStorage('speechToText', true),
   conversationMode: atomWithLocalStorage('conversationMode', false),
   advancedMode: atomWithLocalStorage('advancedMode', false),
-  autoSendText: atomWithLocalStorage('autoSendText', false),
+  autoSendText: atomWithLocalStorage('autoSendText', 0),
   autoTranscribeAudio: atomWithLocalStorage('autoTranscribeAudio', false),
   decibelValue: atomWithLocalStorage('decibelValue', -45),
   endpointSTT: atomWithLocalStorage('endpointSTT', 'browser'),

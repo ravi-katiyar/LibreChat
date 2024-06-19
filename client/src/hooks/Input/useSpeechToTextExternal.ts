@@ -9,7 +9,7 @@ const useSpeechToTextExternal = (onTranscriptionComplete: (text: string) => void
   const [endpointSTT] = useRecoilState<string>(store.endpointSTT);
   const [speechToText] = useRecoilState<boolean>(store.SpeechToText);
   const [autoTranscribeAudio] = useRecoilState<boolean>(store.autoTranscribeAudio);
-  const [autoSendText] = useRecoilState<boolean>(store.autoSendText);
+  const [autoSendText] = useRecoilState(store.autoSendText);
   const [text, setText] = useState<string>('');
   const [isListening, setIsListening] = useState(false);
   const [permission, setPermission] = useState(false);
@@ -26,10 +26,12 @@ const useSpeechToTextExternal = (onTranscriptionComplete: (text: string) => void
       const extractedText = data.text;
       setText(extractedText);
       setIsRequestBeingMade(false);
-      if (autoSendText && speechToText && extractedText.length > 0) {
+      console.log('autoSendText:', autoSendText);
+      // TODO: add an option to abort this timeout
+      if (autoSendText !== 0 && speechToText && extractedText.length > 0) {
         setTimeout(() => {
           onTranscriptionComplete(extractedText);
-        }, 3000);
+        }, autoSendText * 1000);
       }
     },
     onError: () => {
